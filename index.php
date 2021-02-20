@@ -23,8 +23,26 @@ $getTodosQuery = mysqli_query($con,"SELECT * FROM `tbl_todo` WHERE currentStatus
   <div class="row justify-content-center">
     <div class="col-12 col-md-8 col-lg-6 taskbox" >
       <h1 class="mb-4">Tasks</h1>
+      
+      <div class="alert alert-success success_msg">
+        <strong>Success!</strong> Todo added
+      </div>
+
+      <div class="alert alert-danger delete_msg">
+        <strong>Todo </strong> Deleted
+      </div>
+
+      <div class="alert alert-info update_msg">
+        <strong>Success!</strong> Todo Update
+      </div>
+
+      <div class="alert alert-danger error_msg">
+        <strong>Error </strong> Occured. Please try again!
+      </div>
+
+
       <div class="card rounded">
-        <div class="card-body"  id="taskbox">
+        <div class="card-body tasklist"  id="taskbox">
           <?php
               while ($todos = mysqli_fetch_assoc($getTodosQuery)) 
               {
@@ -34,26 +52,26 @@ $getTodosQuery = mysqli_query($con,"SELECT * FROM `tbl_todo` WHERE currentStatus
                     <?php echo $todos['taskName']; ?>
                 </div>
                 <div class="col-3">
-                <div class="allbuttons">
-                <?php if($todos['currentStatus'] == 2) { ?>
+                    <div class="allbuttons">
+                        <?php if($todos['currentStatus'] == 2) { ?>
 
-                  <p class="btn btn-sm done">Done</p>
+                          <p class="btn btn-sm done">Done</p>
 
-                <?php
-                }
-                else
-                {
-                ?>
-                
-                  <button class="btn btn-sm btn-success" id="completed" data-val="<?php echo $todos['taskId']; ?>">&#10003;</button>
-                  <button class="btn btn-sm btn-danger" id="deleted" data-val="<?php echo $todos['taskId']; ?>">X</button>
-                
-                <?php
-                }
-                ?>
-              </div>
+                        <?php
+                        }
+                        else
+                        {
+                        ?>
+                        
+                          <button class="btn btn-sm btn-success" id="completed" data-val="<?php echo $todos['taskId']; ?>">&#10003;</button>
+                          <button class="btn btn-sm btn-danger" id="deleted" data-val="<?php echo $todos['taskId']; ?>">X</button>
+                        
+                        <?php
+                        }
+                        ?>
                 </div>
             </div>
+            </div> 
           <?php
               }
           ?>
@@ -64,7 +82,7 @@ $getTodosQuery = mysqli_query($con,"SELECT * FROM `tbl_todo` WHERE currentStatus
 <div class="well">
   <form class="form" action="javascript:void(0);" id="todoAddForm">
     <div class="form-group">
-      <input type="text" class="form-control form-control" name="taskName" placeholder="Add Task">
+      <input type="text" class="form-control form-control taskName" name="taskName" placeholder="Add Task">
     </div>
     <button type="submit" class="btn btn-block btn-primary" id="saveTodo">Save</button>
   </form>
